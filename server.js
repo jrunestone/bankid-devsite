@@ -5,20 +5,21 @@ const app = express();
 const port = 8000;
 
 const apiKey = process.env.APIKEY;
-const signKey = process.env.SIGNKEY;
 const authKey = process.env.AUTHKEY;
+const sparKey = process.env.SPARKEY;
+const signKey = process.env.SIGNKEY;
 
 app.post("/auth/:mode/start", async (req, res) => {
     const params = new URLSearchParams({
-        "authenticateServiceKey": req.params.mode === "sign" ? signKey : authKey,
+        "authenticateServiceKey": req.params.mode === "sign" ? signKey : req.params.mode === "spar" ? sparKey : authKey,
         "apiKey": apiKey,
         "qr": true,
         "gui": false
     });
 
     if (req.params.mode === "sign") {
-        params.userVisibleData = btoa("visible text!");
-        params.userNonVisibleData = btoa("invisible text!");
+        params.append("userVisibleData", btoa("visible text!"));
+        params.append("userNonVisibleData", btoa("invisible text!"));
     }
 
     const authRes = await fetch("https://client-test.grandid.com/json1.1/FederatedLogin", {
@@ -36,7 +37,7 @@ app.post("/auth/:mode/start", async (req, res) => {
 app.get("/auth/:mode/poll/:id", async (req, res) => {
     const url = new URL("https://client-test.grandid.com/json1.1/GetSession");
     
-    url.searchParams.append("authenticateServiceKey", req.params.mode === "sign" ? signKey : authKey);
+    url.searchParams.append("authenticateServiceKey", req.params.mode === "sign" ? signKey : req.params.mode === "spar" ? sparKey : authKey);
     url.searchParams.append("apiKey", apiKey);
     url.searchParams.append("sessionId", req.params.id);
 

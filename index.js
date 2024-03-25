@@ -1,4 +1,5 @@
 const authButton = document.querySelector("#auth");
+const sparButton = document.querySelector("#spar");
 const signButton = document.querySelector("#sign");
 const qrImg = document.querySelector("#qr");
 const initText = document.querySelector("#init");
@@ -61,4 +62,5 @@ const updateQrCode = (qr) => {
 
 // koppla start till knapptryck
 authButton.onclick = () => startAuth("auth");
+sparButton.onclick = () => startAuth("spar");
 signButton.onclick = () => startAuth("sign");
