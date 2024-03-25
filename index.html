@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Document</title>
+        <style>
+            .wrap { 
+                float: left;
+            }
+
+            #init,#status {
+                border: 1px inset black;
+                background: rgb(250, 240, 240);
+                width: 800px;
+                height: 400px;
+                margin: 0;
+            }
+            </style>
+    </head>
+    
+    <body>
+        <img id="qr" width="200" height="200">
+        <br><button id="auth">Identifiera</button> <button id="sign">Signera</button><br><br>
+
+        <div class="wrap">
+            <strong>Start:</strong>
+            <pre id="init"></pre>
+        </div>
+
+        <div class="wrap">
+            <strong>Status:</strong>
+            <pre id="status"></pre>
+        </div>
+
+        <script src="index.js"></script>
+    </body>
+</html>

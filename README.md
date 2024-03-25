@@ -1,0 +1,1 @@
+`APIKEY=xxx SIGNKEY=xxx AUTHKEY=xxx npm start`
