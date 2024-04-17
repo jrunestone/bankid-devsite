@@ -4,6 +4,7 @@ const fetch = require('node-fetch');
 const app = express();
 const port = 8000;
 
+const apiUrl = process.env.APIURL;
 const apiKey = process.env.APIKEY;
 const authKey = process.env.AUTHKEY;
 const sparKey = process.env.SPARKEY;
@@ -22,7 +23,7 @@ app.post("/auth/:mode/start", async (req, res) => {
         params.append("userNonVisibleData", btoa("invisible text!"));
     }
 
-    const authRes = await fetch("https://client-test.grandid.com/json1.1/FederatedLogin", {
+    const authRes = await fetch(`${apiUrl}/FederatedLogin`, {
         method: "POST",
         headers: {
             "Content-Type": "application/x-www-form-urlencoded"
@@ -35,7 +36,7 @@ app.post("/auth/:mode/start", async (req, res) => {
 });
 
 app.get("/auth/:mode/poll/:id", async (req, res) => {
-    const url = new URL("https://client-test.grandid.com/json1.1/GetSession");
+    const url = new URL(`${apiUrl}/GetSession`);
     
     url.searchParams.append("authenticateServiceKey", req.params.mode === "sign" ? signKey : req.params.mode === "spar" ? sparKey : authKey);
     url.searchParams.append("apiKey", apiKey);
